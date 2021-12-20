@@ -32,7 +32,13 @@ countrycode | language
 
 -- TODO: Write SQL query here
 
-
+SELECT country.name 
+FROM countrylanguage JOIN country 
+ON countrylanguage.countrycode = country.code 
+WHERE language = 'Italian' AND percentage = 100;
+    name    
+------------
+ San Marino
 
 
 
@@ -44,6 +50,13 @@ countrycode | language
 
 -- TODO: Write SQL query here
 
+SELECT name  
+FROM city 
+WHERE countrycode = 'SMR' AND name != 'San Marino';
+    name    
+------------
+ Serravalle
+
 
 -- Clue #5: Oh no, she pulled a switch – there are two cities with very similar 
 -- names, but in totally different parts of the globe! She's headed to South 
@@ -52,7 +65,12 @@ countrycode | language
 -- search for what country it's in. Hurry!
 
 -- TODO: Write SQL query here
-
+SELECT * 
+FROM city 
+WHERE name LIKE 'Serr%' AND name != 'Serravalle';
+id  | name  | countrycode |     district     | population 
+-----+-------+-------------+------------------+------------
+ 265 | Serra | BRA         | Espï¿½rito Santo |     302666
 
 -- Clue #6: We're close! Our South American agent says she just got a taxi at
 -- the airport, and is headed towardsthe capital! Look up the country's 
@@ -60,6 +78,16 @@ countrycode | language
 -- we'll follow right behind you!
 
 -- TODO: Write SQL query here
+
+SELECT city.name
+FROM country JOIN city
+ON country.capital = city.id
+WHERE country.code = 'BRA';
+
+ name    
+------------
+ Brasï¿½lia
+
 
 
 -- Clue #7: She knows we're on to her – her taxi dropped her off at the 
@@ -83,3 +111,10 @@ countrycode | language
 
 -- TODO: Write SQL query here
 
+SELECT name, countrycode
+FROM city 
+WHERE population = '91084';
+
+    name     | countrycode 
+--------------+-------------
+ Santa Monica | USA
